@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import { createRequire } from "module";
+import { PassThrough } from "stream";
 const require = createRequire(import.meta.url);
 
 const prompt = require("prompt-sync")();
@@ -20,6 +21,9 @@ for (let length = 4; length < 12; length++) {
     // console.log(regex);
     let initialMatches = text.match(regex);
     let finalMatches = [];
+    if (initialMatches === null) {
+        continue;
+    }
     initialMatches.forEach((match, index) => {
         if (match.includes(inner) && initialMatches.indexOf(match) == index) {
             finalMatches.push(match.trim());
